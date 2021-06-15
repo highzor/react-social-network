@@ -7,7 +7,7 @@ const Post = (props) => {
             <img src='https://yt3.ggpht.com/a/AGF-l79ZmLceSSgZZYXcj6pPLtgb4M12wolTkJHVFw=s800-c-k-c0xffffffff-no-rj-mo' />
             {props.message}
             <div>
-              <span>like</span>
+              <span>likes {props.likesCount}</span>
             </div>
           </div>
   );
