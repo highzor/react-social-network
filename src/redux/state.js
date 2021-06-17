@@ -1,3 +1,7 @@
+import dialogsReducer from './dialogs-reducer';
+import profileReducer from './profile-reducer';
+import sidebarReducer from './sidebar-reducer';
+
 const store = {
     _state: {
 
@@ -19,8 +23,10 @@ const store = {
                 { id: 1, message: 'hello' },
                 { id: 2, message: 'How are you?' },
                 { id: 3, message: 'Yo' }
-            ]
-        }
+            ],
+            newMessageBody: ''
+        },
+        sidebar: {}
     },
     getState() {
         return this._state;
@@ -28,23 +34,15 @@ const store = {
     _callSubscriber() {
         console.log('hi');
     },
-    addPost() {
-        const newPost = {
-            id: 3,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubscriber(this._state);
-    },
-    updateNewPostText(newText) {
-
-        this._state.profilePage.newPostText = newText;
-        this._callSubscriber(this._state);
-    },
     subscribe(observer) {
         this._callSubscriber = observer;
+    },
+    dispatch(action) {
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        this._callSubscriber(this._state);
     }
 };
 
